@@ -1,0 +1,236 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int             @id @default(autoincrement())
+  usernameTG    String          @unique
+  phoneNumber   String          @unique
+  hashPassword  String
+  role          Role
+  profile       Profile?
+  bookings      Booking[]
+  deleted       Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  onlineBooking OnlineBooking[]
+  subscription  Subscription[]
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  surname   String?
+  gender    Gender?
+  age       Int?
+  height    Float?
+  weight    Float?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lesson {
+  id          Int            @id @default(autoincrement())
+  title       String
+  description String?
+  duration    Int?
+  videoLink   String
+  trainer     Trainer        @relation(fields: [trainerId], references: [id])
+  trainerId   Int
+  category    LessonCategory @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Club {
+  id             Int             @id @default(autoincrement())
+  name           String
+  address        String
+  city           String
+  country        String
+  phoneNumber    String
+  linkToImage    String
+  workouts       Workout[]
+  trainers       Trainer[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  onlineBookings OnlineBooking[]
+}
+
+model Trainer {
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  age                  Int?
+  gender               Gender?
+  photo                String?
+  experience           Int?
+  lessons              Lesson[]
+  certifications       Certification[]
+  club                 Club                   @relation(fields: [clubId], references: [id])
+  clubId               Int
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  schedules            Schedule[]
+  TrainerCertification TrainerCertification[]
+}
+
+model Certification {
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  description          String?
+  trainers             Trainer[]
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  TrainerCertification TrainerCertification[]
+}
+
+model TrainerCertification {
+  id              Int           @id @default(autoincrement())
+  trainer         Trainer       @relation(fields: [trainerId], references: [id])
+  trainerId       Int
+  certification   Certification @relation(fields: [certificationId], references: [id])
+  certificationId Int
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@unique([trainerId, certificationId])
+}
+
+model LessonCategory {
+  id           Int      @id @default(autoincrement())
+  categoryName String
+  lessons      Lesson[]
+  iconName     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Booking {
+  id              Int           @id @default(autoincrement())
+  schedule        Schedule      @relation(fields: [scheduleId], references: [id])
+  scheduleId      Int
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
+  status          BookingStatus
+  bookingDateTime DateTime
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Schedule {
+  id              Int       @id @default(autoincrement())
+  workout         Workout   @relation(fields: [workoutId], references: [id])
+  workoutId       Int
+  dateTime        DateTime
+  maxParticipants Int
+  reservedSlots   Int
+  trainer         Trainer?  @relation(fields: [trainerId], references: [id])
+  trainerId       Int?
+  bookings        Booking[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Workout {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String?
+  type        String?
+  category    WorkoutCategory @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  schedules   Schedule[]
+  club        Club            @relation(fields: [clubId], references: [id])
+  clubId      Int
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model WorkoutCategory {
+  id        Int       @id @default(autoincrement())
+  name      String
+  workouts  Workout[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model OnlineBooking {
+  id             Int           @id @default(autoincrement())
+  service        Service       @relation(fields: [serviceId], references: [id])
+  serviceId      Int
+  bookedDateTime DateTime
+  customer       User          @relation(fields: [customerId], references: [id])
+  customerId     Int
+  club           Club          @relation(fields: [clubId], references: [id])
+  clubId         Int
+  status         BookingStatus
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Service {
+  id            Int             @id @default(autoincrement())
+  name          String
+  description   String?
+  type          ServiceType
+  onlineBooking OnlineBooking[]
+}
+
+model Subscription {
+  id               Int                @id @default(autoincrement())
+  plan             Plan               @relation(fields: [planId], references: [id])
+  planId           Int
+  customer         User               @relation(fields: [customerId], references: [id])
+  customerId       Int
+  purchaseDateTime DateTime
+  expirationDate   DateTime
+  status           SubscriptionStatus
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model Plan {
+  id            Int            @id @default(autoincrement())
+  name          String
+  description   String?
+  price         Float
+  duration      Int
+  benefits      String[]
+  subscriptions Subscription[]
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELED
+}
+
+enum ServiceType {
+  PERSONAL_TRAINING
+  MASSAGE
+  SAUNA
+}
+
+enum Role {
+  ADMIN
+  USER
+  TRAINER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum BookingStatus {
+  CONFIRMED
+  PENDING
+  CANCELED
+}
