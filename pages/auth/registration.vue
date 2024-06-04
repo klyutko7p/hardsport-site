@@ -64,7 +64,6 @@ async function getChatData() {
               if (phoneNumber === registrationUser.value.phoneNumber) {
                 await uploadData(chatData.chat.id);
               }
-
               requestSent = true;
               return;
             }
@@ -203,7 +202,7 @@ let registrationUser = ref({
   },
 } as User);
 let isLoading = ref(false);
-let isShowInputConfirmationCode = ref(false)
+let isShowInputConfirmationCode = ref(false);
 </script>
 
 <template>
@@ -341,7 +340,11 @@ let isShowInputConfirmationCode = ref(false)
               <li>Вбейте код подтверждения, который пришлёт наш бот!</li>
             </ul>
             <div class="flex justify-center mt-5" v-if="!isShowInputConfirmationCode">
-              <UISectionButton @click="getChatData(), isShowInputConfirmationCode = !isShowInputConfirmationCode"
+              <UISectionButton
+                @click="
+                  getChatData(),
+                    (isShowInputConfirmationCode = !isShowInputConfirmationCode)
+                "
                 >Получить подтверждение</UISectionButton
               >
             </div>

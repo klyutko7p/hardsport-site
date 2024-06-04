@@ -24,7 +24,7 @@ useHead({
       мотивацию и вдохновение, и двигайтесь к своим целям вместе с нами.
     </p>
     <div class="flex items-center justify-center gap-10 mt-10">
-      <UIRegistrationButton>Начать тренировку</UIRegistrationButton>
+      <UIRegistrationButton @click="router.push('/auth/registration')">Начать тренировку</UIRegistrationButton>
     </div>
     <video autoplay muted loop id="background-video">
       <source src="@/assets/videos/video-section-video.mp4" type="video/mp4" />
@@ -53,7 +53,7 @@ useHead({
             что поможет вам достичь своих целей быстрее и эффективнее.
           </p>
           <div class="flex items-center justify-center gap-10 mt-16">
-            <UIRegistrationButton>Начать тренировку</UIRegistrationButton>
+            <UIRegistrationButton @click="router.push('/auth/registration')">Начать тренировку</UIRegistrationButton>
           </div>
         </div>
         <img

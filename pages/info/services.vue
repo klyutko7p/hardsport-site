@@ -23,7 +23,7 @@ useHead({
       чтобы сделать ваше фитнес-путешествие еще более приятным и эффективным.
     </p>
     <div class="flex items-center justify-center gap-10 mt-10 max-sm:mt-5">
-      <UIRegistrationButton>ЗАБРОНИРОВАТЬ</UIRegistrationButton>
+      <UIRegistrationButton @click="router.push('/auth/registration')">ЗАБРОНИРОВАТЬ</UIRegistrationButton>
     </div>
     <video autoplay muted loop id="background-video">
       <source
@@ -67,7 +67,7 @@ useHead({
             </ul>
           </div>
           <div class="flex items-center justify-center gap-10 mt-16">
-            <UIRegistrationButton>Забронировать</UIRegistrationButton>
+            <UIRegistrationButton @click="router.push('/auth/registration')">Забронировать</UIRegistrationButton>
           </div>
         </div>
         <img

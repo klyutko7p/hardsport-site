@@ -24,7 +24,7 @@ useHead({
         свои занятия и достигать максимальных результатов вместе с HardSport.
       </p>
       <div class="flex items-center justify-center gap-10 mt-10 max-sm:mt-5">
-        <UIRegistrationButton>Записаться</UIRegistrationButton>
+        <UIRegistrationButton @click="router.push('/auth/registration')">Записаться</UIRegistrationButton>
       </div>
       <video autoplay muted loop id="background-video">
         <source
@@ -49,7 +49,7 @@ useHead({
               кнопку "Записаться" и следуйте инструкциям.
             </p>
             <div class="flex items-center justify-center gap-10 mb-10 mt-10">
-              <UIRegistrationButton>Записаться</UIRegistrationButton>
+              <UIRegistrationButton @click="router.push('/auth/registration')">Записаться</UIRegistrationButton>
             </div>
             <Swiper
               :modules="[SwiperAutoplay]"

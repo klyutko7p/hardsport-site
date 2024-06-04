@@ -80,7 +80,7 @@ useHead({
             </ul>
           </div>
           <div class="flex items-center justify-center gap-10 mt-16">
-            <UIRegistrationButton>Приобрести/Продлить абонемент</UIRegistrationButton>
+            <UIRegistrationButton @click="router.push('/auth/registration')">Приобрести/Продлить абонемент</UIRegistrationButton>
           </div>
         </div>
       </div>
