@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      tokenTelegramBot: '7150753871:AAEMBQZoqNSZPOQwjiUBmoWLwTJbnsF-Ly8'
+      tokenTelegramBot: '6511240958:AAFPHI8_G6m3f2jf7Vs8JV1pl6_8yBpN8Qk'
     },
   },
   ssr: false,

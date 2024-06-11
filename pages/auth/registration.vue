@@ -329,7 +329,7 @@ let isShowInputConfirmationCode = ref(false);
                 Вбейте в поиск "Поддержка HardSport" или кликните
                 <NuxtLink
                   class="underline text-hover-color"
-                  to="https://t.me/HardSportSupportBot"
+                  to="https://t.me/DaromProSupport2Bot"
                   target="_blank"
                   >здесь</NuxtLink
                 >
