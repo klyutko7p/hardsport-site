@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
                 address: club.address,
                 country: club.country,
                 city: club.city,
-                phoneNumber: club.phoneNumber,
+                phoneNumber: club.phoneNumber.toString(),
                 linkToImage: club.linkToImage
             },
         });

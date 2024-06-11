@@ -77,7 +77,6 @@ let subscriptionData = ref({} as Subscription);
 let subscriptionIdData = ref(0);
 
 const requiredFields: Record<string, string> = {
-  customer: "Пользователь",
   planId: "Тариф",
   status: "Статус",
   purchaseDateTime: "Дата покупки",
