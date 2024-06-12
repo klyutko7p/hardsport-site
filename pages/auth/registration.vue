@@ -173,7 +173,7 @@ async function isValidateConfirmationCode() {
       isLoading.value = true;
       let data = await storeUsers.createUser(registrationUser.value);
       console.log(data);
-      if (data !== undefined) {
+      if (data === undefined) {
         toast.success("Вы успешно зарегистрированы!");
       } else {
         toast.error("Произошла ошибка: Пользователь уже существует");
