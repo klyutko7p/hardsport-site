@@ -56,7 +56,7 @@ model Club {
   address        String
   city           String
   country        String
-  phoneNumber    Int
+  phoneNumber    String
   linkToImage    String
   workouts       Workout[]
   trainers       Trainer[]

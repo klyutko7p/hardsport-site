@@ -92,6 +92,8 @@ const requiredFields: Record<string, string> = {
 };
 
 async function createBooking() {
+  bookingData.value.scheduleId = bookingData.value.schedule.id;
+
   if (
     bookingData.value.schedule &&
     bookingData.value.schedule.bookings &&
